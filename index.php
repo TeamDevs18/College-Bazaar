@@ -1,42 +1,138 @@
-<?php
-//This file is the base for all pages in the site. When creating a new page, we just open this one, then save a copy as the new page.
-	include("dbconnect.php");
+<?php 
+/* Main page with two forms: sign up and log in */
+require 'db.php';
+session_start();
 ?>
+<!DOCTYPE html>
 <html>
 <head>
-<title>Welcome to the College Bazaar</title>
+  <title>Sign-Up/Login Form</title>
+  <?php include 'css/css.html'; ?>
 
-<link href="styles.css" rel="stylesheet" type="text/css" />
-</head>
+<?php 
+if ($_SERVER['REQUEST_METHOD'] == 'POST') 
+{
+    if (isset($_POST['login'])) { //user logging in
 
-<body>
-<div class="container">
-	<?php
-		include("header.php");
-// check to see if user is visiting a page other than the home page
-	if(!isset($_GET['page'])) {
-		?><div class="banner"><img src="images/BannerOU.jpg" alt="Our Banner" /></div>
-		<?php
-	}
-	
-	?>
-    <div class="maincontent">
- <!-- main content goes here-->
-      <?php 
-		if(!isset($_GET['page'])) {
-			include("home.php");
-		} else {
-			$page=$_GET['page'];
-			include("$page.php");
-		}
-	  
-	  ?>
-  </div>
-    <?php
-		include("seccontent.php");
-	?>
+        require 'login.php';
+        
+    }
+    
+    elseif (isset($_POST['register'])) { //user registering
+        
+        require 'register.php';
+        
+    }
+}
+?>
 
-	<div class="footer"></div>
-</div><!-- Container ends here-->
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Business Frontpage - College Bazaar</title>
+
+  </head>
+
+  <body>
+<style>
+
+ body {background-image:url(/CollegeBazaar/images/whitebackground.jpg); }
+ 
+</style>
+      
+    <?php include '../../header.php'; ?>
+
+)
+  <div class="form">
+      
+      <ul class="tab-group">
+        <li class="tab"><a href="#signup">Sign Up</a></li>
+        <li class="tab active"><a href="#login">Log In</a></li>
+      </ul>
+      
+      <div class="tab-content">
+
+         <div id="login">   
+          <h1>Welcome Back!</h1>
+          
+          <form action="index.php" method="post" autocomplete="off">
+          
+            <div class="field-wrap">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input type="email" required autocomplete="off" name="email"/>
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Password<span class="req">*</span>
+            </label>
+            <input type="password" required autocomplete="off" name="password"/>
+          </div>
+          
+          <p class="forgot"><a href="forgot.php">Forgot Password?</a></p>
+          
+          <button class="button button-block" name="login" />Log In</button>
+          
+          </form>
+
+        </div>
+          
+        <div id="signup">   
+          <h1>Sign Up for Free</h1>
+          
+          <form action="index.php" method="post" autocomplete="off">
+          
+          <div class="top-row">
+            <div class="field-wrap">
+              <label>
+                First Name<span class="req">*</span>
+              </label>
+              <input type="text" required autocomplete="off" name='firstname' />
+            </div>
+        
+            <div class="field-wrap">
+              <label>
+                Last Name<span class="req">*</span>
+              </label>
+              <input type="text"required autocomplete="off" name='lastname' />
+            </div>
+          </div>
+
+          <div class="field-wrap">
+            <label>
+              Email Address<span class="req">*</span>
+            </label>
+            <input type="email"required autocomplete="off" name='email' />
+          </div>
+          
+          <div class="field-wrap">
+            <label>
+              Set A Password<span class="req">*</span>
+            </label>
+            <input type="password"required autocomplete="off" name='password'/>
+          </div>
+
+          <button type="submit" class="button button-block" name="register" />Register</button>
+          
+          </form>
+
+        </div>  
+        
+      </div><!-- tab-content -->
+      
+</div> <!-- /form -->
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+
+    <script src="js/index.js"></script>
+
+    
+    <?php include '../../footer.php'; ?>
+    <?php include 'login-footer.php'; ?>
+
 </body>
 </html>
