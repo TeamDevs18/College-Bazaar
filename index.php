@@ -1,42 +1,87 @@
-<?php
-//This file is the base for all pages in the site. When creating a new page, we just open this one, then save a copy as the new page.
-	include("dbconnect.php");
-?>
-<html>
-<head>
-<title>Welcome to the College Bazaar</title>
+<!DOCTYPE html>
+<html lang="en">
 
-<link href="styles.css" rel="stylesheet" type="text/css" />
-</head>
+  <head>
 
-<body>
-<div class="container">
-	<?php
-		include("header.php");
-// check to see if user is visiting a page other than the home page
-	if(!isset($_GET['page'])) {
-		?><div class="banner"><img src="images/BannerOU.jpg" alt="Our Banner" /></div>
-		<?php
-	}
-	
-	?>
-    <div class="maincontent">
- <!-- main content goes here-->
-      <?php 
-		if(!isset($_GET['page'])) {
-			include("home.php");
-		} else {
-			$page=$_GET['page'];
-			include("$page.php");
-		}
-	  
-	  ?>
-  </div>
-    <?php
-		include("seccontent.php");
-	?>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
 
-	<div class="footer"></div>
-</div><!-- Container ends here-->
-</body>
+    <title>Business Frontpage - College Bazaar</title>
+  </head>
+<style>
+body{
+  background-image:url('images/whitebackground.jpg');
+}
+</style>
+  <body>
+    
+    <?php include 'header.php'; ?>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+        <div class="col-sm-8">
+          <h2 class="mt-4">MARKETPLACE</h2>
+          <p>BEST PLACE TO BUY-SELL-SWAP-SHARE</p>
+          <p></p>
+          <p>
+         
+          
+          </p>
+        </div>
+        
+      </div>
+      <!-- /.row -->
+
+      <div class="row">
+        <div class="col-sm-4 my-4">
+          <div class="card">
+            <img class="card-img-top" src="images/marketplace.png" alt="Market">
+            <div class="card-body">
+              <h4 class="card-title"></h4>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-footer">
+              <a href="products.php" class="btn btn-primary">Products</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 my-4">
+          <div class="card">
+            <img class="card-img-top" src="images/services.png" alt="services">
+            <div class="card-body">
+              <h4 class="card-title"></h4>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-footer">
+              <a href="serviceinstance.php" class="btn btn-primary">Services</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4 my-4">
+          <div class="card">
+            <img class="card-img-top" src="images/events.png" alt="events">
+            <div class="card-body">
+              <h4 class="card-title"></h4>
+              <p class="card-text"></p>
+            </div>
+            <div class="card-footer">
+              <a href="eventinstance.php" class="btn btn-primary">Events</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <?php include 'footer.php'; ?>
+
+  </body>
+
 </html>
