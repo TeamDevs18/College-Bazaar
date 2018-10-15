@@ -1,0 +1,3 @@
+https://cloud.google.com/dns/update-name-servers
+
+https://vinoaj.com/guides/2018/google-cloud-dns-for-godaddy-domain/
