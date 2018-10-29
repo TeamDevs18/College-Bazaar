@@ -1,0 +1,20 @@
+sudo nano /etc/apache2/mods-enabled/dir.conf - configured site index file
+sudo nano /etc/apache2/sites-enabled/000-default.conf - updated default apache configuration files
+/etc/apache2/apache2.conf - made /phpmyadmin a possible address
+/etc/phpmyadmin/config.inc.php - allow passwordless account login!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+headers.php - fixed links
+index.php - created redirect
+reconfigured mysql users table
+
+
+
+
+https://websiteforstudents.com/install-phpmyadmin-apache2-and-mysql-on-ubuntu-18-04-lts-beta-server/ - set up phpmyadmin and mysql
+https://askubuntu.com/questions/668734/the-requested-url-phpmyadmin-was-not-found-on-this-server#723431 - phpmyadmin 404 error
+https://linux.die.net/man/5/sshd_config - sshd_config parameters
+https://stackoverflow.com/questions/39281594/error-1698-28000-access-denied-for-user-rootlocalhost#42742610 - configure mysql user accounts
+
+
+
+
+installed sql and sql features, php functionality, phpmyadmin
