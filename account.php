@@ -40,43 +40,111 @@ body{
             <a href="/CollegeBazaar/products.php" class="list-group-item">Products</a>
             <a href="/CollegeBazaar/services.php" class="list-group-item">Services</a>
             <a href="/CollegeBazaar/events.php" class="list-group-item">Events</a>
+            <a href="/CollegeBazaar/addproduct.php" class="list-group-item">Add Product</a>
           </div>
         </div>
         <!-- /.col-lg-3 -->
 
+        <!--Account's Posted Products-->
         <div class="col-lg-9">
-
-          <div class="card mt-4">
-            <img class="card-img-top img-fluid" src="http://placehold.it/900x400" alt="">
-            <div class="card-body">
-              <h3 class="card-title">Product Name</h3>
-              <h4>$24.99</h4>
-              <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sapiente dicta fugit fugiat hic aliquam itaque facere, soluta. Totam id dolores, sint aperiam sequi pariatur praesentium animi perspiciatis molestias iure, ducimus!</p>
-              <span class="text-warning">&#9733; &#9733; &#9733; &#9733; &#9734;</span>
-              4.0 stars
-            </div>
+          <h2>Your Posted Products</h2>
+          <div class="row">
+        <?php
+          require 'db.php';
+        
+          $result = $mysqli->query("SELECT
+              id,
+              userId,
+              name,
+              categoryId,
+              price,
+              thumbnail,
+              topline,
+              description
+              FROM products
+              WHERE
+                userId=".$_SESSION['id']."
+                AND hidden=0");
+              
+            if(!empty($result)){
+              foreach($result as $product) {
+                ?>
+                  <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a href="#"><img class="card-img-top" src="<?php echo $product['thumbnail']; ?>" alt=""></a>
+                  <div class="card-body">
+                    <h4 class="card-title"><?php echo $product['name']; ?></h4>
+                    <h5>$<?php echo number_format($product['price'],2);; ?></h5>
+                    <p class="card-text"><?php echo $product['description']; ?></p>
+                    <a href="deletepost.php?product=<?php echo $product['id']; ?>">Delete</a>
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                  </div>
+                </div>
+              </div>
+                <?php
+              }
+            }
+          ?>
           </div>
-          <!-- /.card -->
 
-          <div class="card card-outline-secondary my-4">
-            <div class="card-header">
-              Product Reviews
-            </div>
-            <div class="card-body">
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis et enim aperiam inventore, similique necessitatibus neque non! Doloribus, modi sapiente laboriosam aperiam fugiat laborum. Sequi mollitia, necessitatibus quae sint natus.</p>
-              <small class="text-muted">Posted by Anonymous on 3/1/17</small>
-              <hr>
-              <a href="#" class="btn btn-success">Leave a Review</a>
-            </div>
+        <!--Viewed Products-->
+          <h2>Viewed Products</h2>
+          <div class="row">
+        <?php
+          require 'db.php';
+        
+          $result = $mysqli->query("SELECT
+              products.userId,
+              products.name,
+              products.categoryId,
+              products.price,
+              products.thumbnail,
+              products.topline,
+              products.description
+              FROM products_viewed
+              INNER JOIN products ON products_viewed.productId=products.id
+              WHERE products_viewed.userId=".$_SESSION['id']."
+                AND products.hidden=0");
+              
+             /* $result = $mysqli->query("SELECT *
+              FROM products_viewed
+              WHERE userId=".$_SESSION['id']);
+            */
+            if(!empty($result)){
+              foreach($result as $product) {
+                ?>
+                  <div class="col-lg-4 col-md-6 mb-4">
+                <div class="card h-100">
+                  <a href="#"><img class="card-img-top" src="<?php echo $product['thumbnail']; ?>" alt=""></a>
+                  <div class="card-body">
+                    <h4 class="card-title">
+                      <a href="mailto:<?php
+                        $user = $mysqli->query("SELECT
+                          email
+                          FROM users
+                          WHERE id=".$product['userId']);
+                          
+                          foreach($user as $thisUser){
+                            echo $thisUser['email'];
+                          }
+                          
+                      ?>"><?php echo $product['name']; ?></a>
+                    </h4>
+                    <h5>$<?php echo number_format($product['price'],2);; ?></h5>
+                    <p class="card-text"><?php echo $product['description']; ?></p>
+                  </div>
+                  <div class="card-footer">
+                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                  </div>
+                </div>
+              </div>
+                <?php
+              }
+            }
+          ?>
           </div>
-          <!-- /.card -->
-
         </div>
         <!-- /.col-lg-9 -->
 

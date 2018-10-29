@@ -6,6 +6,9 @@
 <!-- Custom styles for this template -->
 <!--<link href="https://market-place-kellywebr.c9users.io/CollegeBazaar/css/business-frontpage.css" rel="stylesheet">-->
 
+<!-- Custom Styles -->
+<link href="https://market-place-kellywebr.c9users.io/CollegeBazaar/styles.css" rel="stylesheet">
+
 <!-- Navigation -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
   <div class="container">

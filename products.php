@@ -22,7 +22,8 @@ body{
     <?php include 'header.php'; ?>
         <?php
         if(empty($_SESSION['active'])){
-            header('location: /CollegeBazaar/index.php');
+            $_SESSION['message']='You must be logged in to view products!';
+            header('location: /CollegeBazaar/Login-Register/login-register-code/error.php');
         }
     ?>
 
@@ -40,14 +41,19 @@ body{
             <a href="/CollegeBazaar/products.php" class="list-group-item active">Products</a>
             <a href="/CollegeBazaar/services.php" class="list-group-item">Services</a>
             <a href="/CollegeBazaar/events.php" class="list-group-item">Events</a>
+            <a href="/CollegeBazaar/addproduct.php" class="list-group-item">Add Product</a> <!-- Moved here from above the product images (below) -->
           </div>
 
         </div>
         <!-- /.col-lg-3 -->
     
-
         <div class="col-lg-9">
-          <a href="postproducts.php">Post Products</a>
+          <!--   Moved post product link up to List-Group, didn't delete it here incase you want to put it back  -->
+          <!-- <a href="postedproducts.php">Post Products</a>
+          <a href="addproduct.php">Add Product</a>
+          -->
+          
+<!-- getting rid of carousel for now
 
           <div id="carouselExampleIndicators" class="carousel slide my-4" data-ride="carousel">
             <ol class="carousel-indicators">
@@ -74,105 +80,58 @@ body{
               <span class="carousel-control-next-icon" aria-hidden="true"></span>
               <span class="sr-only">Next</span>
             </a>
-          </div>
+          </div> 
+          
+Getting rid of carousel for now -->
 
           <div class="row">
-
-            <div class="col-lg-4 col-md-6 mb-4">
+            
+            <?php
+            require 'db.php';
+            
+            $result = $mysqli->query("SELECT
+              id,
+              userId,
+              name,
+              categoryId,
+              price,
+              thumbnail,
+              topline,
+              description
+              FROM products
+              WHERE
+                hidden=0");
+            
+            foreach($result as $product) {
+              ?>
+                <div class="col-lg-4 col-md-6 mb-4">
               <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="images/blackops.jpg" alt=""></a>
+                <a href="#"><img class="card-img-top" src="<?php echo $product['thumbnail']; ?>" alt=""></a>
                 <div class="card-body">
                   <h4 class="card-title">
-                    <a href="#">COD BlackOps PS4 copy</a>
+                    <a href="<?php
+                      $user = $mysqli->query("SELECT
+                        email
+                        FROM users
+                        WHERE id=".$product['userId']);
+                        
+                        foreach($user as $thisUser){
+                          echo 'addviewedproduct.php?product=',$product['id'],'&email=',$thisUser['email'];
+                        }
+
+                    ?>"><?php echo $product['name']; ?></a>
                   </h4>
-                  <h5>$59.99</h5>
-                  <p class="card-text">Extra copy of new COD for sale message for inquiries</p>
+                  <h5>$<?php echo number_format($product['price'],2); ?></h5>
+                  <p class="card-text"><?php echo $product['description']; ?></p>
                 </div>
                 <div class="card-footer">
                   <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
                 </div>
               </div>
             </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="images/car.jpg" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Used Toyota Corolla 115,000</a>
-                  </h4>
-                  <h5>$4,000</h5>
-                  <p class="card-text">Selling my corolla great condition message for meetup taking highest bed</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="images/futon.jpg" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Futon for sale</a>
-                  </h4>
-                  <h5>$299</h5>
-                  <p class="card-text">Futon for sale slightly used</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="images/macbook.jpg" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">2015 Macbook Pro</a>
-                  </h4>
-                  <h5>$699</h5>
-                  <p class="card-text">Used Macbook Pro for sale great condition original box included</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="images/bike.png" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Bike for sale</a>
-                  </h4>
-                  <h5>$499</h5>
-                  <p class="card-text">Used bike for sale great condition slightly used </p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 mb-4">
-              <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="images/couch.png" alt=""></a>
-                <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="#">Slightly Used Couch</a>
-                  </h4>
-                  <h5>$299</h5>
-                  <p class="card-text">Used couch for sale great condition message for inquiries</p>
-                </div>
-                <div class="card-footer">
-                  <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                </div>
-              </div>
-            </div>
+              <?php
+            }
+          ?>
 
           </div>
           <!-- /.row -->
