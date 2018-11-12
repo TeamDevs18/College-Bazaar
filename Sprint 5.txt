@@ -1,0 +1,5 @@
+register.php (link) email
+login.php (header link)
+db.php (connection properties)
+confirmaddproduct.php (link after upload)
+index.php
