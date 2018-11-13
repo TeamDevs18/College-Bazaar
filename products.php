@@ -19,6 +19,7 @@ body{
 </style>
 
   <body>
+    <?php include 'popup.php'; ?>
     <?php include 'header.php'; ?>
         <?php
         if(empty($_SESSION['active'])){
@@ -48,10 +49,6 @@ body{
         <!-- /.col-lg-3 -->
     
         <div class="col-lg-9">
-          <!--   Moved post product link up to List-Group, didn't delete it here incase you want to put it back  -->
-          <!-- <a href="postedproducts.php">Post Products</a>
-          <a href="addproduct.php">Add Product</a>
-          -->
           
 <!-- getting rid of carousel for now
 
@@ -100,7 +97,8 @@ Getting rid of carousel for now -->
               description
               FROM products
               WHERE
-                hidden=0");
+                hidden=0
+                AND NOT userId=".$_SESSION['id']);
             
             foreach($result as $product) {
               ?>
@@ -108,21 +106,14 @@ Getting rid of carousel for now -->
               <div class="card h-100">
                 <a href="#"><img class="card-img-top" src="<?php echo $product['thumbnail']; ?>" alt=""></a>
                 <div class="card-body">
-                  <h4 class="card-title">
-                    <a href="<?php
-                      $user = $mysqli->query("SELECT
-                        email
-                        FROM users
-                        WHERE id=".$product['userId']);
-                        
-                        foreach($user as $thisUser){
-                          echo 'addviewedproduct.php?product=',$product['id'],'&email=',$thisUser['email'];
-                        }
-
-                    ?>"><?php echo $product['name']; ?></a>
-                  </h4>
+                  <h4 class="card-title"><?php echo $product['name']; ?></h4>
                   <h5>$<?php echo number_format($product['price'],2); ?></h5>
                   <p class="card-text"><?php echo $product['description']; ?></p>
+                  <?php
+                      $productId=$product['id']; #Pass the product id to addmessagebutton.php
+                      
+                      echo "<button class='message-button btn btn-primary' onclick='showMessages($productId,null)'>Message</button>";
+                    ?>
                 </div>
                 <div class="card-footer">
                   <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
