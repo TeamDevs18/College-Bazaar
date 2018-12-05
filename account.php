@@ -1,3 +1,9 @@
+<?php
+
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,6 +24,15 @@
 body{
   background-image:url('images/whitebackground.jpg');
 }
+
+
+.content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: #f1f1f1;
+}
+
 </style>
 
   <body>
@@ -49,24 +64,30 @@ body{
     <div class="container">
 
       <div class="row">
-
+<!------ sidebar  ----------->
         <div class="col-lg-3">
           <h1 class="my-4">Account</h1>
           <div class="list-group">
             <a href="/CollegeBazaar/products.php" class="list-group-item">Products</a>
+            <a href="/CollegeBazaar/addproduct.php" class="list-group-item">  Add Product</a>
             <a href="/CollegeBazaar/services.php" class="list-group-item">Services</a>
+            <a href="/CollegeBazaar/addservice.php" class="list-group-item">  Add Service</a>
             <a href="/CollegeBazaar/events.php" class="list-group-item">Events</a>
-            <a href="/CollegeBazaar/addproduct.php" class="list-group-item">Add Product</a>
-            <a href="/CollegeBazaar/addevent.php" class="list-group-item">Add Event</a>
-            <a href="/CollegeBazaar/addservice.php" class="list-group-item">Add Service</a>
+            <a href="/CollegeBazaar/addevent.php" class="list-group-item">  Add Event</a>
           </div>
         </div>
         <!-- /.col-lg-3 -->
 
 <!--Account's Posted Products  -------------------------------------------------->
         <div class="col-sm-9">
-          <h2>Your Posted Products</h2>
+          <br>
+         <h1>Post Activity</h1>
+         <br>
+                      <button class='collapsible black'>Posted Products</button>
+<div class="content">
+  <p>
           <div class="row">
+
         <?php
           require 'db.php';
         
@@ -89,9 +110,9 @@ body{
                 ?>
                   <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
+                  <h4 class="card-title"><?php echo $product['name']; ?></h4>
                   <a href="#"><img class="card-img-top" src="<?php echo $product['thumbnail']; ?>" alt=""></a>
                   <div class="card-body">
-                    <h4 class="card-title"><?php echo $product['name']; ?></h4>
                     <h5>$<?php echo number_format($product['price'],2);; ?></h5>
                     <p class="card-text"><?php echo $product['description']; ?></p>
                     <?php
@@ -99,21 +120,24 @@ body{
                       
                       include('addproductmessagesbutton.php');
                     ?>
-                    <a class="post-delete btn btn-primary" href="deletepost.php?product=<?php echo $product['id']; ?>">Delete</a>
+                    <a class="buttonDelete" href="deletepost.php?product=<?php echo $product['id']; ?>&type=0">Delete</a>
                   </div>
-                  <div class="card-footer">
-                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                  </div>
+                
                 </div>
               </div>
                 <?php
               }
             }
           ?>
+          </p>
+          </div>
           </div>
 
         <!--Viewed Products-->
-          <h2>Viewed Products</h2>
+         
+                               <button class='collapsible gold'>Viewed Products</button>
+<div class="content">
+  <p>
           <div class="row">
         <?php
           require 'db.php';
@@ -128,8 +152,8 @@ body{
               products.topline,
               products.description
               FROM products
-              INNER JOIN product_messages ON products.id=product_messages.productId
-              WHERE product_messages.buyerId=".$_SESSION['id']."
+              INNER JOIN messages ON products.id=messages.productId
+              WHERE messages.buyerId=".$_SESSION['id']."
               GROUP BY products.id");
               
              /* $result = $mysqli->query("SELECT *
@@ -141,43 +165,33 @@ body{
                 ?>
                   <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
+                  <h4 class="card-title"><a><?php echo $product['name']; ?></a></h4>
                   <a href="#"><img class="card-img-top" src="<?php echo $product['thumbnail']; ?>" alt=""></a>
                   <div class="card-body">
-                    <h4 class="card-title">
-                      <a href="mailto:<?php
-                        $user = $mysqli->query("SELECT
-                          email
-                          FROM users
-                          WHERE id=".$product['userId']);
-                          
-                          foreach($user as $thisUser){
-                            echo $thisUser['email'];
-                          }
-                          
-                      ?>"><?php echo $product['name']; ?></a>
-                    </h4>
                     <h5>$<?php echo number_format($product['price'],2);; ?></h5>
                     <p class="card-text"><?php echo $product['description']; ?></p>
+                    <a class="buttonDelete" href="deletethread.php?product=<?php echo $product['id']; ?>&type=0">Delete</a>
                     <?php
                       $productId=$product['id']; #Pass the product id to addmessagebutton.php
-                      echo "<button class='message-button btn btn-primary' onclick='showMessages($productId)'>Messages</button>";
+                      echo "<button class='buttonMessage' onclick='showMessages($productId,null,0)'>Messages</button>";
                     ?>
                   </div>
-                  <div class="card-footer">
-                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                  </div>
+                 
                 </div>
               </div>
                 <?php
               }
             }
           ?>
+             </p>
+          </div>
           </div>
           
-            <div class="col-sm-9">
-          
           <!--posted events by you -->
-          <h2>Your Posted Events</h2>
+       
+                               <button class='collapsible black'>Posted Events</button>
+<div class="content">
+  <p>
           <div class="row">
         <?php
           require 'db.php';
@@ -202,9 +216,9 @@ body{
                 ?>
                   <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
+                  <h4 class="card-title"><?php echo $event['name']; ?></h4>
                   <a href="#"><img class="card-img-top" src="<?php echo $event['thumbnail']; ?>" alt=""></a>
                   <div class="card-body">
-                    <h4 class="card-title"><?php echo $event['name']; ?></h4>
                     <h5>$<?php echo number_format($event['price'],2);; ?></h5>
                     <p class="card-text"><?php echo $event['description']; ?></p>
                     <?php
@@ -212,21 +226,24 @@ body{
                       
                       include('addproductmessagesbutton.php');
                     ?>
-                    <a class="post-delete btn btn-primary" href="deletepost.php?product=<?php echo $event['id']; ?>">Delete</a>
+                    <a class="buttonDelete" href="deletepost.php?product=<?php echo $event['id']; ?>&type=1">Delete</a>
                   </div>
-                  <div class="card-footer">
-                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                  </div>
+                  
                 </div>
               </div>
                 <?php
               }
             }
           ?>
+             </p>
+          </div>
           </div>
 
         <!--Viewed Events-->
-          <h2>Viewed Events</h2>
+                             <button class='collapsible gold'>Viewed Events</button>
+<div class="content">
+  <p>
+          <h2></h2>
           <div class="row">
         <?php
           require 'db.php';
@@ -242,10 +259,10 @@ body{
               events.topline,
               events.description
               FROM events
-              INNER JOIN product_messages ON events.id=product_messages.productId
-              WHERE product_messages.buyerId=".$_SESSION['id']."
+              INNER JOIN messages ON events.id=messages.productId
+              WHERE messages.buyerId=".$_SESSION['id']."
               GROUP BY events.id");
-              //will need to change product_messages part once messaging is expanded
+              //will need to change messages part once messaging is expanded
               // in order to display viewed events
               
              /* $result = $mysqli->query("SELECT *
@@ -257,46 +274,34 @@ body{
                 ?>
                   <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
+                  <h4 class="card-title"><a><?php echo $event['name']; ?></a></h4>
                   <a href="#"><img class="card-img-top" src="<?php echo $event['thumbnail']; ?>" alt=""></a>
                   <div class="card-body">
-                    <h4 class="card-title">
-                      <a href="mailto:<?php
-                        $user = $mysqli->query("SELECT
-                          email
-                          FROM users
-                          WHERE id=".$event['userId']);
-                          
-                          foreach($user as $thisUser){
-                            echo $thisUser['email'];
-                          }
-                          
-                      ?>"><?php echo $event['name']; ?></a>
-                    </h4>
                     <h5>$<?php echo number_format($event['price'],2);; ?></h5>
                     <p class="card-text"><?php echo $event['description']; ?></p>
+                    <a class="buttonDelete" href="deletethread.php?product=<?php echo $product['id']; ?>&type=1">Delete</a>
                     <?php
                       $event=$event['id']; #Pass the product id to addmessagebutton.php
-                      echo "<button class='message-button btn btn-primary' onclick='showMessages($event)'>Messages</button>"; #again, will need to expand messaging functionality
+                      echo "<button class='buttonMessage' onclick='showMessages($event,null,1)'>Messages</button>"; #again, will need to expand messaging functionality
                     ?>
                   </div>
-                  <div class="card-footer">
-                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                  </div>
+             
                 </div>
               </div>
                 <?php
               }
             }
           ?>
+             </p>
           </div>
-        </div>
-<!-- col-sm-9 for events ------------------------------------------->
+          </div>
         
         
-          <div class="col-sm-9">
-          
-          <!--posted events by you -->
-          <h2>Your Posted Services</h2>
+          <!--posted services by you -->
+                               <button class='collapsible black'>Posted Services</button>
+<div class="content">
+  <p>
+          <h2></h2>
           <div class="row">
         <?php
           require 'db.php';
@@ -321,31 +326,33 @@ body{
                 ?>
                   <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
+                  <h4 class="card-title"><?php echo $service['name']; ?></h4>
                   <a href="#"><img class="card-img-top" src="<?php echo $service['thumbnail']; ?>" alt=""></a>
                   <div class="card-body">
-                    <h4 class="card-title"><?php echo $service['name']; ?></h4>
                     <h5>$<?php echo number_format($service['price'],2);; ?></h5>
                     <p class="card-text"><?php echo $service['description']; ?></p>
                     <?php
                       $productId=$service['id']; #Pass the product id to addmessagebutton.php
-                      
                       include('addproductmessagesbutton.php');
                     ?>
-                    <a class="post-delete btn btn-primary" href="deletepost.php?product=<?php echo $service['id']; ?>">Delete</a>
+                    <a class="buttonDelete" href="deletepost.php?product=<?php echo $service['id']; ?>&type=2">Delete</a>
                   </div>
-                  <div class="card-footer">
-                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                  </div>
+                  
                 </div>
               </div>
                 <?php
               }
             }
           ?>
+             </p>
+          </div>
           </div>
 
-        <!--Viewed Events-->
-          <h2>Viewed Services</h2>
+        <!--Viewed Services-->
+                             <button class='collapsible gold'>Viewed Services</button>
+<div class="content">
+  <p>
+          
           <div class="row">
         <?php
           require 'db.php';
@@ -361,10 +368,10 @@ body{
               services.topline,
               services.description
               FROM services
-              INNER JOIN product_messages ON services.id=product_messages.productId
-              WHERE product_messages.buyerId=".$_SESSION['id']."
+              INNER JOIN messages ON services.id=messages.productId
+              WHERE messages.buyerId=".$_SESSION['id']."
               GROUP BY services.id");
-              //will need to change product_messages part once messaging is expanded
+              //will need to change messages part once messaging is expanded
               // in order to display viewed services
               
              /* $result = $mysqli->query("SELECT *
@@ -376,40 +383,28 @@ body{
                 ?>
                   <div class="col-lg-4 col-md-6 mb-4">
                 <div class="card h-100">
+                  <h4 class="card-title"><a><?php echo $service['name']; ?></a></h4>
                   <a href="#"><img class="card-img-top" src="<?php echo $service['thumbnail']; ?>" alt=""></a>
                   <div class="card-body">
-                    <h4 class="card-title">
-                      <a href="mailto:<?php
-                        $user = $mysqli->query("SELECT
-                          email
-                          FROM users
-                          WHERE id=".$service['userId']);
-                          
-                          foreach($user as $thisUser){
-                            echo $thisUser['email'];
-                          }
-                          
-                      ?>"><?php echo $service['name']; ?></a>
-                    </h4>
                     <h5>$<?php echo number_format($service['price'],2);; ?></h5>
                     <p class="card-text"><?php echo $service['description']; ?></p>
+                    <a class="buttonDelete" href="deletethread.php?product=<?php echo $service['id']; ?>&type=2">Delete</a>
                     <?php
                       $service=$service['id']; #Pass the product id to addmessagebutton.php
-                      echo "<button class='message-button btn btn-primary' onclick='showMessages($service)'>Messages</button>"; #again, will need to expand messaging functionality
+                      echo "<button class='buttonMessage' onclick='showMessages($service,null,2)'>Messages</button>"; #again, will need to expand messaging functionality
                     ?>
                   </div>
-                  <div class="card-footer">
-                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-                  </div>
+                 
                 </div>
               </div>
                 <?php
               }
             }
           ?>
+             </p>
           </div>
-        </div>
-<!-- /.col-sm-9 for services  --------------------------------------------------------------->
+          </div>
+          
         </div>
         <!-- /.col-sm-9 -->
         
@@ -420,11 +415,36 @@ body{
       </div>
 
     </div>
-    
+    <br>
     <!-- /.container -->
 
-    <?php include 'footer.php'; ?>
+    
 
-  </body>
+  
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
 
+for (i = 0; i < coll.length; i++) {
+  coll[i].addEventListener("click", function() {
+    this.classList.toggle("active");
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+    } else {
+      content.style.display = "block";
+    }
+  });
+}
+</script>
+<footer style="   position: fixed;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+ 
+   color: white;
+   text-align: center;">
+<?php include 'footer.php'; ?>
+</footer>
+</body>
 </html>
