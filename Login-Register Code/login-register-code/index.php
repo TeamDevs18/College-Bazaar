@@ -1,31 +1,7 @@
-<?php 
-/* Main page with two forms: sign up and log in */
-require 'db.php';
-session_start();
-?>
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Sign-Up/Login Form</title>
-  <?php include 'css/css.html'; ?>
+<html lang="en">
 
-<?php 
-if ($_SERVER['REQUEST_METHOD'] == 'POST') 
-{
-    if (isset($_POST['login'])) { //user logging in
-
-        require 'login.php';
-        
-    }
-    
-    elseif (isset($_POST['register'])) { //user registering
-        
-        require 'register.php';
-        
-    }
-}
-?>
-
+  <head>
 
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -33,108 +9,75 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST')
     <meta name="author" content="">
 
     <title>Business Frontpage - College Bazaar</title>
+        <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
+    <!-- Custom styles for this template -->
+    <link href="css/shop-item.css" rel="stylesheet">
   </head>
-
-  <body>
 <style>
-
- body {background-image:url(/CollegeBazaar/images/whitebackground.jpg); }
- 
+body{
+  background-image:url('images/whitebackground.jpg');
+}
 </style>
-      
-    <?php include '../../header.php'; ?>
+  <body>
+    
+    <?php include 'header.php'; ?>
 
-  <div class="form">
-      
-      <ul class="tab-group">
-        <li class="tab"><a href="#signup">Sign Up</a></li>
-        <li class="tab active"><a href="#login">Log In</a></li>
-      </ul>
-      
-      <div class="tab-content">
+    <!-- Page Content -->
+    <div class="container">
+      <h1 style='text-align: center;' id='brandName'>Oakland University Market</h1>
+<br>
 
-         <div id="login">   
-          <h1>Welcome Back!</h1>
-          
-          <form action="index.php" method="post" autocomplete="off">
-          
-            <div class="field-wrap">
-            <label>
-              Email Address<span class="req">*</span>
-            </label>
-            <input type="email" required autocomplete="off" name="email"/>
+
+
+<div class="row" id="home-list">
+  <div class="column side">
+   
+    <div class="card">
+            <img class="card-img-top" src="images/marketplace.png" alt="Market">
+            <a href="products.php" class="buttonHome">Products</a>
           </div>
-          
-          <div class="field-wrap">
-            <label>
-              Password<span class="req">*</span>
-            </label>
-            <input type="password" required autocomplete="off" name="password"/>
+  </div>
+  <div class="column middle">
+   
+       <div class="card">
+            <img class="card-img-top" src="images/services.png" alt="services">
+            <a href="services.php" class="buttonHome">Services</a>
           </div>
-          
-          <p class="forgot"><a href="forgot.php">Forgot Password?</a></p>
-          
-          <button class="button button-block" name="login" />Log In</button>
-          
-          </form>
+  </div>
+  <div class="column side">
+  
+       <div class="card">
+            <img class="card-img-top" src="images/events.png" alt="events">
+            <a href="events.php" class="buttonHome">Events</a>
+          </div>
+  </div>
+</div>
 
+      <div class="col-sm-6">
+      <div class="row">
+        <div class="col-sm-4 my-4">
+         
         </div>
-          
-        <div id="signup">   
-          <h1>Sign Up for Free</h1>
-          
-          <form action="index.php" method="post" autocomplete="off">
-          
-          <div class="top-row">
-            <div class="field-wrap">
-              <label>
-                First Name<span class="req">*</span>
-              </label>
-              <input type="text" required autocomplete="off" name='firstname' />
-            </div>
-        
-            <div class="field-wrap">
-              <label>
-                Last Name<span class="req">*</span>
-              </label>
-              <input type="text"required autocomplete="off" name='lastname' />
-            </div>
-          </div>
-          <div class="top-row">
-            <div class="field-wrap">
-              <label>
-                Email Address<span class="req">*</span>
-              </label>
-              <input type="email"required autocomplete="off" name='email' />
-            </div>
-          </div>          
-</br>
-</br>
-</br>
-          <div class="field-wrap">
-            <label>
-              Set A Password<span class="req">*</span>
-            </label>
-            <input type="password"required autocomplete="off" name='password'/>
-          </div>
-
-          <button type="submit" class="button button-block" name="register" />Register</button>
-          
-          </form>
-
-        </div>  
-        
-      </div><!-- tab-content -->
+        <div class="col-sm-4 my-4">
+       
+        </div>
+        <div class="col-sm-4 my-4">
       
-  </div> <!-- /form -->
-  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+        </div>
 
-    <script src="js/index.js"></script>
+     
+      <!-- /.row -->
+           
+      </div> 
+      <!-- /.col-sm-8 -->
+    </div>
+    <!-- /.container -->
 
     
-    <?php include '../../footer.php'; ?>
-    <?php include 'login-footer.php'; ?>
 
-</body>
+  </body>
+  </div>
+<?php include 'footer.php'; ?>
 </html>

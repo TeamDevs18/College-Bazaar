@@ -1,4 +1,4 @@
-<?php
+?php
 /* The password reset form, the link to this page is included
    from the forgot.php email message
 */
@@ -34,12 +34,6 @@ else {
 </head>
 
 <body>
-  <style>
-
- body {background-image:url(/CollegeBazaar/images/whitebackground.jpg); }
- 
-</style>
-  <?php include '../../header.php'; ?>
     <div class="form">
 
           <h1>Choose Your New Password</h1>
@@ -47,13 +41,18 @@ else {
           <form action="reset_password.php" method="post">
               
           <div class="field-wrap">
-            <input type="password"required name="newpassword" autocomplete="off" placeholder="New Password"/>
+            <label>
+              New Password<span class="req">*</span>
+            </label>
+            <input type="password"required name="newpassword" autocomplete="off"/>
           </div>
               
           <div class="field-wrap">
-            <input type="password"required name="confirmpassword" autocomplete="off" placeholder="Confirm New Password"/>
+            <label>
+              Confirm New Password<span class="req">*</span>
+            </label>
+            <input type="password"required name="confirmpassword" autocomplete="off"/>
           </div>
-          
           
           <!-- This input field is needed, to get the email of the user -->
           <input type="hidden" name="email" value="<?= $email ?>">    
@@ -64,30 +63,7 @@ else {
           </form>
 
     </div>
-    
-    </div>
-    <div class="col-lg-4">
-          <h2 class="mt-4"> </h2>
-          <address>
-            <strong> </strong>
-            <br>
-            <br>
-            <br>
-          </address>
-          <address>
-            <abbr title=></abbr>
-            
-            <br>
-           <abbr title=></abbr>
-            <a href=></a>
-          </address>
-        </div>
-
-      </div>
 <script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
 <script src="js/index.js"></script>
-    <?php include '../../footer.php'; ?>
-    <?php include 'login-footer.php'; ?>
-
 </body>
 </html>
