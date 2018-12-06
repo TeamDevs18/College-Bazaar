@@ -1,0 +1,312 @@
+h2, body{
+    font-family:Arial;
+}
+
+.navbar-brand{
+    font-size:30px;
+}
+
+.card-title{
+      text-align: center;
+
+  text-transform: uppercase;
+  font-size: 15pt;
+  font-weight: bold;
+
+  background-color:#6c757d;
+  color:white;
+
+}
+.card-text{
+     position: static;
+ border-color:white;
+  font-size: 12pt;
+  width: 230px;
+  height: 50px;
+   padding-bottom: 5px;
+   overflow:auto;
+}
+.card-date{
+     position: static;
+ border-color:white;
+  font-size: 12pt;
+  width: 230px;
+
+  
+  
+}
+.card-price{
+      position: static;
+  text-transform: uppercase;
+  font-size: 30;
+color: green;
+}
+
+
+
+.popup-container{
+    position:fixed;
+    left:0;
+    top:0;
+    width:100%;
+    height:100%;
+    background-color:rgba(0,0,0,.2);
+    z-index:9999;
+    
+    display:none;
+}
+
+#popup-messages-container{
+    z-index:99999;
+}
+
+.popup-container.active{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.popup{
+    width:35rem;
+    max-width:100%;
+    max-height:100%;
+    margin:auto;
+    
+    background-color:white;
+    border:5px solid black;
+    
+    overflow:auto;
+    
+    position:absolute;
+}
+
+.thread-button{
+    display:block;
+    background:none;
+    box-shadow:none;
+    color:white;
+    cursor:pointer;
+    width: 100%;
+    margin:.5em 0;
+}
+
+.popup-close{
+    top:0;
+    right:0;
+    position:absolute;
+    
+    background:#9b0000;
+    color:white;
+    font-size:2em;
+    cursor:pointer;
+}
+
+.popup h2{
+    margin:.5em;
+}
+
+/*Message styles*/
+#popup-messages-text{
+    width:50%;
+    margin:auto;
+}
+
+#popup-messages-form{
+    text-align: center;
+}
+
+#popup-message-box{
+    width:20em;
+}
+
+.emailMessage{
+    font-size:1.5em;
+    color:#877148;
+}
+
+.collapsible.active::after{
+    content:' \21e7';
+}
+
+.collapsible:not(.active)::after{
+    content:' \21e9';
+}
+
+.message-you,
+.message-them{
+    display:block;
+    margin:.5em;
+    width:90%;
+    border-radius:.25em;
+    padding:.5em;
+    box-sizing:border-box;
+}
+
+.message-you{
+    background-color:#dcdcdc;
+}
+
+.message-them{
+    background-color:#868686;
+    color:#fff;
+}
+
+/*Bootstrap override*/
+#home-list{
+    display:flex;
+    justify-content:space-around;
+}
+
+#home-list .card-img-top{
+    height:17rem;
+}
+
+.buttonMessage,.buttonHome{
+width:100%;    
+position: absolute;
+right:    0;
+bottom:   0;
+color: white;
+padding:.1em;
+box-sizing:border-box;
+cursor:pointer;
+text-align:center;
+}
+
+.buttonMessage:hover{
+    text-decoration:underline;
+    color:#0056b3;
+}
+
+.buttonHome{
+    font-size:2em;
+    position:static;
+    width:100%;
+    height:100%;
+    display:block;
+}
+
+
+.buttonDelete{
+    width:50%;
+    right:    0;
+    bottom:   1.25em;
+    padding:.1em;
+    margin:auto;
+    margin-bottom:.5em;
+    display:block;
+    box-sizing:border-box;
+    text-align:center;
+    margin-bottom:1em;
+    color: white;
+}
+
+
+.card-img-top{
+    object-fit:contain;
+    height:12rem;
+    width:100%;
+    border: solid #555 1px;
+    box-sizing:border-box;
+}
+
+#footer{
+    bottom:0;
+    width:100%;
+}
+
+.collapsible{
+     background-color:  #877148;
+    color: white;
+    cursor: pointer;
+     
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 30px;
+}
+
+.black{
+    background-color:#000;
+}
+
+.gold{
+    background-color:#877148;
+}
+
+.form{
+    margin-top:5rem;
+}
+
+#mascotImage{
+    height:1em;
+}
+
+#brandName{
+    color:#877148;
+    font-weight:bold;
+}
+
+/*** COLOR SCHEME ***/
+
+/*
+Gold: #877148
+Beige: #e8e0cf
+Black: #000
+*/
+
+/* Color */
+a{
+    color:#877148;
+}
+
+a:hover{
+    color:#e8e0cf;
+}
+
+/* Background Color */
+.buttonHome,
+.buttonMessage,
+.buttonDelete,
+.thread-button,
+.thread-button:hover,
+.btn-primary,.btn-primary:hover,.btn-primary:active,
+.button.button-block,
+.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle{
+    background-color:#877148;
+}
+
+.btn-primary:active,.btn-primary:not(:disabled):not(.disabled).active, .btn-primary:not(:disabled):not(.disabled):active, .show > .btn-primary.dropdown-toggle{
+    border-color:#e8e0cf;
+}
+
+.btn-primary.focus, .btn-primary:focus{
+    box-shadow:0 0 0 .2rem #e8e0cf;
+}
+
+input[type="submit"],
+input[type="submit"]:hover,
+input[type="submit"]:active{
+    background-color:#877148;
+}
+
+.btn-primary{
+    border:none;
+}
+
+.buttonMessage:hover{
+    color:#fff;
+}
+/*
+input[type="submit"]:hover,
+input[type="submit"]:active,
+.buttonHome:hover,
+.buttonHome:active{
+    background-color:#e8e0cf;
+}*/
+
+.list-group-item.active{
+    background-color:#877148;
+    border-color:#877148;
+}
